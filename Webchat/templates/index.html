@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Index</title>
+</head>
+<body>
+    <!-- navbar -->
+    <ul class="navbar_ul">
+        <li class="navbar_li"><a class="active" href="/">Home</a></li>
+        {% if not token %}
+        <li class="navbar_li"><a href="/login">Login</a></li>
+        <li class="navbar_li"><a href="/register">Register</a></li>
+        {% endif %}
+        {% if token %}
+        <li class="navbar_li"><a href="/profile">My profile</a></li>
+        <li class="navbar_li"><a href="/search">Search User</a></li>
+        <li class="navbar_li logout"><a href="/logout">Log out</a></li>
+        {% endif %}
+    </ul>
+    <!-- end -->
+    {% if token %}
+    <h1>Welcome, {{ username }}</h1>
+    <h1>This is Homepage</h1>
+    {% endif %}
+    {% if not token %}
+    <h1>Welcome!</h1>
+    {% endif %}
+
+</body>
+</html>

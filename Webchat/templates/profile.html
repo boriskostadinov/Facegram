@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css%22%3E">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js%22%3E"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js%22%3E"></script>
+    <title>Profile</title>
+</head>
+<body>
+    <!-- navbar -->
+    <ul class="navbar_ul">
+        <li class="navbar_li"><a href="/">Home</a></li>
+        <li class="navbar_li"><a class="active" href="/profile">My profile</a></li>
+        <li class="navbar_li"><a href="/search">Search User</a></li>
+        <li class="navbar_li"><a href="/chat">Chat</a></li>
+        <li class="navbar_li logout"><a href="/logout">Log out</a></li>
+        <li class="navbar_li logout"><a href="/{{ user_id }}/edit">Edit Profile</a></li>
+    </ul>
+    <!-- end -->
+    <h1>Welcome to your profile, {{ username }}</h1>
+    <h1>Your email - {{ email }}</h1>
+    <h1>Your address - {{ address }}</h1>
+    <h1>Your mobile - {{ mobile }}</h1>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <title>Search User</title>
+</head>
+<body>
+    <!-- navbar -->
+    <ul class="navbar_ul">
+        <li class="navbar_li"><a href="/">Home</a></li>
+        <li class="navbar_li"><a href="/profile">My profile</a></li>
+        <li class="navbar_li"><a class="active" href="/search">Search User</a></li>
+        <li class="navbar_li logout"><a href="/logout">Log out</a></li>
+    </ul>
+    <!-- end -->
+    
+    <h1></h1>
+    <div class = "form">
+        <form class = "form"    action="/search" method="POST">
+            <div class="form-group">
+                <input type="email" name = "email" class="form-control" placeholder="Enter user email" required>
+            </div>
+            <button type="submit" class="btn btn-light">Search</button>
+        </form>
+    </div>
+</body>
+</html>
