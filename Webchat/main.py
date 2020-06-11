@@ -7,6 +7,7 @@ from flask_socketio import SocketIO, send, emit, join_room, leave_room
 from time import localtime, strftime
 
 from user import User
+from advertisement import Advertisement
 
 import json
 import os
@@ -34,9 +35,9 @@ def index():
     user_id = session.get("user_id")
     if token:
         username = User.find_name_by_id(user_id)
-        return render_template('index.html', token=token, username=username)
+        return render_template('index.html', advertisements=Advertisement.all(), token=token, username=username)
     else:
-        return render_template('index.html', token=token)
+        return render_template('index.html', advertisements=Advertisement.all(), token=token)
 
 @app.route('/profile')
 def profile():
@@ -69,6 +70,67 @@ def edit_profile(id):
         user.mobile = request.form['mobile'] 
         user.save()
         return redirect('/profile')
+
+@app.route('/new', methods=['GET', 'POST'])
+def new_ad():
+    if request.method == 'GET':
+        return render_template('new_ad.html')
+    elif request.method == 'POST':
+        user_id = session.get("user_id")
+        values = (
+            None,
+            request.form['title'],
+            request.form['description'],
+            request.form['price'],
+            request.form['date'],
+            1,
+            0,
+            user_id
+        )
+        Advertisement(*values).create()
+
+        return redirect('/')
+
+@app.route('/<int:id>/edit', methods=['GET', 'POST'])
+def edit_ad(id):
+    advertisement = Advertisement.find(id)
+    if request.method == "GET":
+        return render_template('edit_ad.html', advertisement=advertisement)
+    elif request.method == "POST":
+        advertisement.title = request.form['title']
+        advertisement.description = request.form['description']
+        advertisement.price = request.form['price']
+        advertisement.date = request.form['date']
+        advertisement.save()
+        return redirect(url_for('show_advertisement', id = advertisement.id))
+
+@app.route('/<int:id>')
+def show_advertisement(id):
+    token = request.cookies.get('token')
+    advertisement = Advertisement.find(id)
+    user_id = session.get("user_id")
+    if advertisement.active == 0:
+        buyer = Advertisement.buyer_info_by_id(advertisement.buyer_id)
+        return render_template('advertisement.html', advertisement=advertisement, token=token, user_id=user_id, buyer=buyer)
+    else:
+        return render_template('advertisement.html', advertisement=advertisement, token=token, user_id=user_id)
+
+@app.route('/<int:id>/delete', methods=['POST'])
+def delete_ad(id):
+    advertisement = Advertisement.find(id)
+    if advertisement.seller_id == session.get("user_id"):
+        advertisement.delete()
+
+    return redirect('/')
+
+@app.route('/<int:id>/buy', methods=['POST'])
+def buy_ad(id):
+    advertisement = Advertisement.find(id)
+    if advertisement.seller_id != session.get("user_id"):
+        buyer_id = session.get("user_id")
+        advertisement.buy(buyer_id)
+
+    return redirect('/')
 
 @app.route('/search', methods=['GET', 'POST'])
 def search_user():

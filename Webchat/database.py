@@ -28,6 +28,22 @@ CREATE TABLE IF NOT EXISTS follow
     )
 ''')
 
+conn.cursor().execute('''
+CREATE TABLE IF NOT EXISTS advertisements
+    (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        description TEXT,
+        price INTEGER NOT NULL,
+        date TEXT NOT NULL,
+        active INTEGER NOT NULL,
+        buyer_id INTEGER,
+        seller_id INTEGER NOT NULL,
+        FOREIGN KEY(buyer_id) REFERENCES users(id),
+        FOREIGN KEY(seller_id) REFERENCES users(id)
+    )
+''')
+
 
 
 conn.commit()
