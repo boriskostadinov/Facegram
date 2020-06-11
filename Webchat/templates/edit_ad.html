@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <form action="/{{ advertisement.id }}/edit" method="post">
+      <div class="form__group">
+        <input name="title" type="text" placeholder="{{ advertisement.title }}" class="form__input title" />
+      </div>
+
+      <div class="form__group">
+          <textarea name="description" placeholder="{{ advertisement.description }}" rows="4" cols="50"></textarea>
+
+      <div class="form__group">
+          <input name="price" type="text" placeholder="{{ advertisement.price }}" class="form__input price" />
+      </div>
+          
+      <div class="form__group">
+          <input class="date" name="date" type="date">
+      </div>
+      <button type="submit">Apply</button>
+    </form>
+</body>
+</html>

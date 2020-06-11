@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" href="style/register.css">
+    <link rel="stylesheet" href="style/style.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Login</title>
+</head>
+<body>
+    <!-- navbar -->
+    <ul class="navbar_ul">
+        <li class="navbar_li"><a href="/">Home</a></li>
+        <!-- <li class="navbar_li"><a href="/login">Login</a></li> -->
+        <!-- <li class="navbar_li"><a href="/register">Register</a></li> -->
+        <li class="navbar_li"><a href="#about">About</a></li>
+    </ul>
+    <!-- end -->
+    <div class="new_ad">
+        <form class="form" action="/new" method="POST">
+            
+            <div class="form__group">
+                <input name="title" type="text" placeholder="Title" class="form__input title" />
+            </div>
+            
+            <div class="form__group">
+                <textarea name="description" placeholder="Description" rows="4" cols="50"></textarea>
+
+            <div class="form__group">
+                <input name="price" type="text" placeholder="Price" class="form__input price" />
+            </div>
+                
+            <div class="form__group">
+                <input class="date" name="date" type="date">
+            </div>
+
+            <button class="btn" type="submit">Create advertisement</button>
+        </form>
+    </div>
+</body>
+</html>
